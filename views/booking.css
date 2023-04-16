@@ -1,0 +1,25 @@
+#payment {
+    display: none;
+    margin-left: 50;
+  }
+
+  #search {
+
+    margin-top: 50px;
+  }
+
+  input {
+    margin-bottom: 50px;
+  }
+
+  .center {
+    border: 5px solid;
+    /* display: flex; */
+    justify-content:top;
+  }
+  /* .card-body{
+    margin: 0;
+  }
+  .card{
+    margin: 0;
+  } */

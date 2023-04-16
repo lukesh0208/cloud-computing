@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Bootstrap theme -->
+  <link rel="stylesheet" href="signup.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title></title>
+
+</head>
+
+<body>
+  <img src="./bus.jpg" alt="">
+
+  <h1 class="text-center  "></h1>
+  <br><br>
+  <p class="h3">Create New Account</p>
+  <a href="#login-head">already have account click here ?</a>
+  <br /><br />
+  <div class="container center_div">
+    <form name="registration_form" id="registration_form" method="post" action="#" enctype="multipart/form-data"
+      style="width: 300px">
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" placeholder="enter name" id="name" />
+      </div>
+      <div class="form-group">
+        <label for="Email">Email </label>
+        <input type="text" name="email" id="email" class="form-control" placeholder="Enter your email">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail" for="password">Password</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password">
+
+      </div>
+
+      <button type="button" id="register" name="register" class="btn btn-primary">Register Now</button>
+    </form>
+  </div>
+  <br><br>
+  <hr>
+  <p class="h2" id="login-head">Login here</p>
+  <br /><br />
+  <div class="container center_div">
+    <form name="login_form" id="login_form" method="post" action="#" enctype="multipart/form-data" style="width: 300px">
+
+      <div class="form-group">
+        <label for="email">Email </label>
+        <input type="text" name="login_email" id="login_email" class="form-control" autocomplete="off"
+          placeholder="Enter your email">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail" for="password">Password</label>
+        <input type="password" name="login_password" id="login_password" class="form-control"
+          placeholder="Enter your password">
+
+      </div>
+
+      <button type="button" id="login" name="login" class="btn btn-success">Login</button>
+    </form>
+  </div>
+
+
+</body>
+<script type="module">
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQo7ct9M4v2R14KPq5ijKe0rGRWEJ6X4Y",
+    authDomain: "authentication-90225.firebaseapp.com",
+    projectId: "authentication-90225",
+    storageBucket: "authentication-90225.appspot.com",
+    messagingSenderId: "871964319716",
+    appId: "1:871964319716:web:52664def8eddb2e936f1f1"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth();
+  console.log(app);
+  //----- New Registration code start	  
+  document.getElementById("register").addEventListener("click", function () {
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    //For new registration
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user);
+        alert("Registration successfully!!");
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+        console.log(errorMessage);
+        alert(error);
+      });
+  });
+  //----- End
+
+  //----- Login code start	  
+  document.getElementById("login").addEventListener("click", function () {
+    var email = document.getElementById("login_email").value;
+    var password = document.getElementById("login_password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user);
+        alert(user.email + " Login successfully !!");
+        alert('Welcome');
+        auth.onAuthStateChanged(user => {
+          if (user) {
+            window.location.href = '/booking'; //After successful login, user will be redirected to booking.ejs
+          }
+        });
+
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+        alert(errorMessage);
+      });
+  });
+
+</script>
+
+</html>

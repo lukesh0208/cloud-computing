@@ -1,0 +1,21 @@
+h2 {
+    margin-left: 9%;
+    /* background-color:#9b99a1; */
+  }
+
+  img {
+    position: relative;
+    left: 9%;
+    width: 150px;
+    display: inline;
+    top: 2px;
+  }
+  #head{
+    padding-right:0 px;
+
+  }
+
+  body{
+    padding:0px;
+    margin:500px;
+  }
